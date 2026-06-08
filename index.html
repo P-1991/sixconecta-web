@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six 20 Got - Santa Catarina, N.L.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rojo: #c8102e;
+            --verde: #007a33;
+            --negro: #0d0d0d;
+            --gris-oscuro: #1a1a1a;
+            --gris-medio: #222;
+            --gris-claro: #888;
+            --blanco: #f5f5f5;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--negro); color: var(--blanco); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(13,13,13,0.95); border-bottom: 2px solid var(--rojo); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 65px; backdrop-filter: blur(8px); }
+        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--rojo); letter-spacing: 3px; }
+        .nav-logo span { color: var(--verde); }
+        .nav-links { display: flex; gap: 35px; list-style: none; }
+        .nav-links a { color: var(--blanco); text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; position: relative; }
+        .nav-links a:hover { color: var(--rojo); }
+        #inicio { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at 20% 50%, rgba(200,16,46,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 50%, rgba(0,122,51,0.1) 0%, transparent 60%), var(--negro); }
+        .hero-bg-text { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 22vw; color: rgba(255,255,255,0.03); letter-spacing: 10px; user-select: none; white-space: nowrap; }
+        .hero-content { text-align: center; z-index: 2; animation: fadeUp 1s ease both; }
+        .hero-tag { display: inline-block; background: var(--rojo); color: white; font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; padding: 6px 20px; margin-bottom: 25px; border-radius: 2px; }
+        .hero-titulo { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 12vw, 10rem); line-height: 0.9; letter-spacing: 5px; color: var(--blanco); margin-bottom: 10px; }
+        .hero-titulo .got { color: var(--rojo); display: block; }
+        .hero-subtitulo { font-size: 0.9rem; color: var(--gris-claro); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 45px; }
+        .hero-botones { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 14px 35px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border-radius: 3px; transition: all 0.3s; cursor: pointer; border: none; }
+        .btn-primary { background: var(--rojo); color: white; }
+        .btn-primary:hover { background: #a50d25; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200,16,46,0.4); }
+        .btn-outline { background: transparent; color: var(--blanco); border: 2px solid var(--verde); }
+        .btn-outline:hover { background: var(--verde); transform: translateY(-2px); }
+        .hero-scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--gris-claro); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; animation: bounce 2s infinite; }
+        section { padding: 100px 40px; }
+        .seccion-tag { display: inline-block; color: var(--rojo); font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; border-left: 3px solid var(--rojo); padding-left: 12px; }
+        .seccion-titulo { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 3px; line-height: 1; margin-bottom: 20px; }
+        #nosotros { background: var(--gris-oscuro); border-top: 1px solid #2a2a2a; border-bottom: 1px solid #2a2a2a; }
+        .nosotros-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .nosotros-texto p { color: var(--gris-claro); line-height: 1.9; font-size: 0.95rem; margin-bottom: 20px; }
+        .nosotros-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .stat-card { background: var(--gris-medio); border: 1px solid #333; border-top: 3px solid var(--rojo); padding: 25px; border-radius: 4px; text-align: center; }
+        .stat-numero { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--rojo); line-height: 1; }
+        .stat-label { font-size: 0.75rem; color: var(--gris-claro); letter-spacing: 1px; text-transform: uppercase; margin-top: 5px; }
+        .productos-header { text-align: center; margin-bottom: 60px; }
+        .productos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 25px; }
+        .producto-card { background: var(--gris-medio); border: 1px solid #2a2a2a; border-radius: 8px; padding: 30px 25px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
+        .producto-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--verde); transform: scaleX(0); transition: transform 0.3s; }
+        .producto-card:hover { border-color: #444; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        .producto-card:hover::before { transform: scaleX(1); }
+        .producto-emoji { font-size: 3rem; margin-bottom: 15px; display: block; }
+        .producto-nombre { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--blanco); margin-bottom: 8px; }
+        .producto-desc { font-size: 0.8rem; color: var(--gris-claro); line-height: 1.6; }
+        .producto-precio { display: inline-block; margin-top: 15px; background: var(--rojo); color: white; font-size: 0.8rem; font-weight: 700; padding: 5px 15px; border-radius: 20px; letter-spacing: 1px; }
+        #contacto { background: var(--gris-oscuro); border-top: 1px solid #2a2a2a; }
+        .contacto-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+        .contacto-info h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 3px; margin-bottom: 30px; }
+        .info-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+        .info-icon { width: 42px; height: 42px; background: var(--rojo); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+        .info-texto strong { display: block; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gris-claro); margin-bottom: 4px; }
+        .info-texto span { font-size: 0.95rem; color: var(--blanco); }
+        .redes { display: flex; gap: 15px; margin-top: 30px; }
+        .red-btn { padding: 10px 25px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-decoration: none; text-transform: uppercase; transition: all 0.3s; }
+        .red-facebook { background: #1877f2; color: white; }
+        .red-facebook:hover { background: #145dbf; transform: translateY(-2px); }
+        .red-whatsapp { background: #25d366; color: white; }
+        .red-whatsapp:hover { background: #1da851; transform: translateY(-2px); }
+        .mapa-container { border-radius: 8px; overflow: hidden; border: 2px solid #333; height: 320px; }
+        .mapa-container iframe { width: 100%; height: 100%; border: none; }
+        .mapa-label { background: var(--gris-medio); padding: 12px 20px; font-size: 0.8rem; color: var(--gris-claro); letter-spacing: 1px; border-top: 2px solid var(--rojo); }
+        footer { background: var(--negro); border-top: 2px solid var(--rojo); text-align: center; padding: 30px 40px; }
+        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--rojo); letter-spacing: 4px; margin-bottom: 8px; }
+        .footer-copy { font-size: 0.75rem; color: var(--gris-claro); letter-spacing: 1px; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+        .fade-in { opacity: 0; transform: translateY(25px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo">Six 20 <span>Got</span></div>
+    <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
+</nav>
+
+<section id="inicio">
+    <div class="hero-bg-text">SIX</div>
+    <div class="hero-content">
+        <div class="hero-tag">🍺 Santa Catarina, N.L.</div>
+        <h1 class="hero-titulo">Six 20 <span class="got">Got</span></h1>
+        <p class="hero-subtitulo">Tu tienda de cervezas favorita</p>
+        <div class="hero-botones">
+            <a href="#productos" class="btn btn-primary">Ver Productos</a>
+            <a href="#contacto" class="btn btn-outline">Cómo llegar</a>
+        </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+</section>
+
+<section id="nosotros">
+    <div class="nosotros-grid">
+        <div class="nosotros-texto fade-in">
+            <span class="seccion-tag">Quiénes somos</span>
+            <h2 class="seccion-titulo">El Six de Santa Catarina</h2>
+            <p>Somos una tienda especializada en cervezas nacionales, ubicada en Santa Catarina, Nuevo León. Nos dedicamos a ofrecer la mejor selección de bebidas para cada ocasión.</p>
+            <p>Desde botanas hasta la cerveza más fría de la ciudad, en Six 20 Got encontrarás todo lo que necesitas para disfrutar con amigos y familia.</p>
+            <a href="#contacto" class="btn btn-primary" style="margin-top:10px; display:inline-block;">Visítanos</a>
+        </div>
+        <div class="nosotros-stats fade-in">
+            <div class="stat-card"><div class="stat-numero">+50</div><div class="stat-label">Marcas disponibles</div></div>
+            <div class="stat-card"><div class="stat-numero">7</div><div class="stat-label">Días a la semana</div></div>
+            <div class="stat-card"><div class="stat-numero">🍺</div><div class="stat-label">Siempre frías</div></div>
+            <div class="stat-card"><div class="stat-numero">$</div><div class="stat-label">Mejores precios</div></div>
+        </div>
+    </div>
+</section>
+
+<section id="productos" style="background: var(--negro);">
+    <div style="max-width:1200px; margin:0 auto;">
+        <div class="productos-header fade-in">
+            <span class="seccion-tag">Lo que tenemos</span>
+            <h2 class="seccion-titulo">Nuestros Productos</h2>
+        </div>
+        <div class="productos-grid">
+            <div class="producto-card fade-in">
+                <div style="height:110px; display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px;">
+                    <img src="imagenes/beers.png" style="height:100px; object-fit:contain;">
+                </div>
+                <div class="producto-nombre">Cervezas</div>
+                <p class="producto-desc">Indio, Tecate, Corona, Modelo, Sol, Carta Blanca, Heineken y más.</p>
+                <span class="producto-precio">Desde $25</span>
+            </div>
+            <div class="producto-card fade-in">
+                <div style="height:110px; display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px;">
+                    <img src="imagenes/cocacola.jpg" style="height:100px; object-fit:contain;">
+                </div>
+                <div class="producto-nombre">Refrescos & Agua</div>
+                <p class="producto-desc">Coca-Cola, Pepsi, agua mineral, jugos y bebidas energéticas.</p>
+                <span class="producto-precio">Desde $15</span>
+            </div>
+            <div class="producto-card fade-in">
+                <div style="height:110px; display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px;">
+                    <img src="imagenes/sabritas.jpg" style="height:100px; object-fit:contain;">
+                </div>
+                <div class="producto-nombre">Botanas</div>
+                <p class="producto-desc">Chips Jalapeño, Ruffles, Sabritas y más para acompañar tu cerveza.</p>
+                <span class="producto-precio">Desde $20</span>
+            </div>
+            <div class="producto-card fade-in">
+                <div style="height:110px; display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px;">
+                    <img src="imagenes/Dulces.jpg" style="height:100px; object-fit:contain;">
+                </div>
+                <div class="producto-nombre">Dulces & Snacks</div>
+                <p class="producto-desc">Chocolates, gomitas, dulces y snacks para todos los gustos.</p>
+                <span class="producto-precio">Desde $10</span>
+            </div>
+            <div class="producto-card fade-in">
+                <div style="height:110px; display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px;">
+                    <img src="imagenes/vinos y licores.png" style="height:100px; object-fit:contain;">
+                </div>
+                <div class="producto-nombre">Vinos & Licores</div>
+                <p class="producto-desc">Bacardí, Absolut, Boones, Caribe Cooler, New Mix y más.</p>
+                <span class="producto-precio">Desde $80</span>
+            </div>
+            <div class="producto-card fade-in">
+                <div style="height:110px; display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px;">
+                    <img src="imagenes/paketesixpack2.jpg" style="height:100px; object-fit:contain;">
+                </div>
+                <div class="producto-nombre">Paquete Six Pack</div>
+                <p class="producto-desc">Six pack Tecate Light lata 355ml + Sabritas naturales grandes.</p>
+                <span class="producto-precio">Desde $120</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contacto">
+    <div class="contacto-inner">
+        <div class="contacto-info fade-in">
+            <span class="seccion-tag">Encuéntranos</span>
+            <h2>Visítanos</h2>
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-texto"><strong>Dirección</strong><span>Av. Manuel Ordóñez 1010, Santa Catarina, Nuevo León</span></div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-texto"><strong>Teléfono</strong><span>(81) 2365-5771</span></div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🕐</div>
+            <div class="info-texto"><strong>Horario</strong><span>Lunes a Sábado: 9:00 AM – 11:00 PM | Domingo: 6:00 PM</span></div>
+            </div>
+            <div class="redes">
+                <a href="https://www.facebook.com/profile.php?id=61590633453330" target="_blank" class="red-btn red-facebook">📘 Facebook</a>
+                <a href="https://wa.me/528123655771" target="_blank" class="red-btn red-whatsapp">💬 WhatsApp</a>
+            </div>
+        </div>
+        <div class="fade-in">
+            <div class="mapa-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.2!2d-100.4723669!3d25.6756256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662986fe3a1e71b%3A0x578d8acf0ab15670!2sAv+Manuel+Ordo%C3%B1ez+1010%2C+Sin+Nombre+de+Col+20%2C+66357+Cdad.+Santa+Catarina%2C+N.L.!5e0!3m2!1ses!2smx!4v1716000000000" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="mapa-label">📍 Av. Manuel Ordóñez 1010, Santa Catarina, N.L.</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-logo">Six 20 Got</div>
+    <p class="footer-copy">© 2026 Six 20 Got · Santa Catarina, Nuevo León · Todos los derechos reservados</p>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
